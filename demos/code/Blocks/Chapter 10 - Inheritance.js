@@ -562,12 +562,56 @@ Blockly.Blocks["virtual"] = {
       .appendField("virtual");
     this.appendStatementInput("stateVirtual")
       .setCheck(null);
+
+    let ptr = this.getInputTargetBlock("stateVirtual");
+    // while (ptr) {
+    //   switch (ptr.getDataStr()) {
+    //     /** If the block is a variable then push data. */
+    //     case "isVar":
+    //       this.classVarPublic_.push(ptr.varProp_);
+    //       break;
+    //
+    //     /** If the block is a function then push data. */
+    //     case 'isFunc':
+    //       if (ptr.type === 'class_function_declaration') {
+    //         //constructor
+    //         if (ptr.getVar_ === this.getVar_) {
+    //           this.classConProp_.push(ptr.funcProp_);
+    //           this.classConParam_.push(ptr.funcParam_);
+    //         }
+    //       }
+    //       this.classFuncProp_.push(ptr.funcProp_);
+    //       this.classFuncParam_.push(ptr.funcParam_);
+    //
+    //       break;
+    //   }
+    //
+    //   /** If the block is a constructor then push data (including attached parameters). */
+    //   switch (ptr.type) {
+    //     case "class_constructor":
+    //       this.classConProp_.push(ptr.funcProp_);
+    //       this.classConParam_.push(ptr.funcParam_);
+    //       break;
+    //     case "ds_object":
+    //       this.classObjPublic_.push(ptr.objProp_);
+    //       break;
+    //   }
+    //
+    //   ptr = ptr.nextConnection.targetBlock();
+    //
+    // }
   }
 };
 
 /** virtual C code. */
 Blockly.C["virtual"] = function (block) {
-  let code = 'virtual';
+  let code = '';
+  var blocks = Blockly.C.statementToCode(block, "stateVirtual");
+
+  if (blocks.length > 0) {
+    code += "virtual";
+    code += blocks;
+  }
 
   return code;
 };
@@ -591,12 +635,20 @@ Blockly.Blocks["friend"] = {
       .appendField("friend");
     this.appendStatementInput("stateFriend")
       .setCheck(null);
+
+    let ptr = this.getInputTargetBlock("stateFriend");
   }
 };
 
 /** friend C code. */
 Blockly.C["friend"] = function (block) {
-  let code = 'friend';
+  let code = '';
+  var blocks = Blockly.C.statementToCode(block, "stateFriend");
+
+  if (blocks.length > 0) {
+    code += "friend";
+    code += blocks;
+  }
 
   return code;
 };
