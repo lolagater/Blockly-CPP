@@ -43,7 +43,7 @@
 
         <!-- Include block type inputs -->
       <script src="Blocks/Blocks - Type.js"></script>
-
+      
       <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
       <script src="https://cdn.jsdelivr.net/gh/jcubic/jquery.terminal@devel/js/jquery.terminal.min.js"></script>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal@2.20.2/css/jquery.terminal.min.css">
@@ -273,7 +273,7 @@
         <!-- Hao: re-categorize the blocks 9/8/2020 -->
         <xml xmlns="" id="toolbox" style="display: none">
 
-            <category name="Class Files" colour="#134796">
+            <category name="Class Files" colour="#70C277">
 
                 <block type="define_file"></block>
                 <block type="include_file"></block>
@@ -282,8 +282,8 @@
 				<block type="delete_block"></block>
 
             </category>
-
-            <category name="Include Directories" colour="#134796">
+			
+            <category name="Include Directories" colour="#70C277">
 
                 <block type="include_iostream"></block>
                 <block type="include_iomanip"></block>
@@ -294,12 +294,14 @@
                 <block type="include_cctype"></block>
                 <block type="include_vector"></block>
                 <block type="include_fstream"></block>
+                <block type="include_ostream"></block>
+                <block type="include_sstream"></block>
 
                 <block type="using_namespace_std"></block>
 
             </category>
 
-            <category name="Main Function" colour="#134796">
+            <category name="Main Function" colour="#C27070">
 
                 <block type="main"></block>
                 <block type="system_pause"></block>
@@ -307,7 +309,7 @@
             </category>
             <!-- end of Main Function blocks -->
 
-            <category name="Variables" colour="#134796">
+            <category name="Variables" colour="#C27070">
 
                 <label text="Variable Declaration" web-class="labelVariable"></label>
 
@@ -377,7 +379,7 @@
             </category>
             <!-- end of Input/Output blocks -->
 
-            <category name="Strings" colour="#134796">
+            <category name="Strings" colour="#70C2A7">
 
                 <label text="Char Input" web-class="labelString"></label>
                 <block type="get_char"></block>
@@ -523,7 +525,7 @@
             </category>
             <!-- end of String blocks -->
 
-            <category name="Math" colour="#134796">
+            <category name="Math" colour="#707EC2">
 
                 <label text="String npos" web-class="labelString"></label>
                 <block type="string_npos"></block>
@@ -654,7 +656,7 @@
             </category>
             <!-- end of Math blocks -->
 
-            <category name="Logic" colour="#134796">
+            <category name="Logic" colour="#7099C2">
 
                 <label text="Conditional Statements" web-class="labelSwitch"></label>
 
@@ -681,7 +683,7 @@
             </category>
             <!-- end of Logic blocks -->
 
-            <category name="Loops" colour="#134796">
+            <category name="Loops" colour="#70C285">
 
                 <label text="Loops" web-class="labelLoops"></label>
 
@@ -714,7 +716,7 @@
             </category>
             <!-- end of Loops blocks -->
 
-            <category name="Functions" colour="#134796">
+            <category name="Functions" colour="#99C270">
 
                 <label text="Function Declaration" web-class="labelFunction"></label>
 
@@ -739,9 +741,9 @@
             </category>
             <!-- end of Function blocks -->
 
-            <category name="Data structure" colour="#134796">
+            <category name="Data structure" colour="#70A7C2">
 
-                <category name="Arrays" colour="#134796">
+                <category name="Arrays" colour="#70A7C2">
 
                     <label text="1D Array Declaration" web-class="labelArray"></label>
 
@@ -826,7 +828,7 @@
 
                 </category>
 
-                <category name="Vectors" colour="#134796">
+                <category name="Vectors" colour="#C270A7">
 
                     <label text="Vector Declaration" web-class="labelVector"></label>
 
@@ -893,7 +895,7 @@
             <!-- end of Data structure blocks -->
 
             <category name="Chapter 1" colour="#134796">
-                <category name="Variables" colour="#134796">
+                <category name="Variables" colour="#C27070">
 
                     <label text="Variable Declaration" web-class="labelVariable"></label>
 
@@ -932,7 +934,7 @@
 
                 </category>
 
-                <category name="Strings" colour="#134796">
+                <category name="Strings" colour="#70C2A7">
 
                     <label text="Cout Output" web-class="labelCout"></label>
 
@@ -1112,7 +1114,7 @@
             </category>
             <!-- end of Chapter 1 blocks -->
 
-            <category name="Chapter 2" colour="#134796">
+            <category name="Chapter 2" colour="#707EC2">
 
                 <label text="String npos" web-class="labelString"></label>
                 <block type="string_npos"></block>
@@ -1220,9 +1222,9 @@
             </category>
             <!-- end of Chapter 2 blocks -->
 
-            <category name="Chapter 3" colour="#134796">
+            <category name="Chapter 3" colour="#7099C2">
 
-                <category name="logic" colour="#134796">
+                <category name="logic" colour="#7099C2">
 
                     <label text="Logic" web-class="labelLogic"></label>
 
@@ -1236,7 +1238,7 @@
                 </category>
 
 
-                <category name="cctype" colour="#134796">
+                <category name="cctype" colour="#70C2BB">
 
                     <label text="cctype" web-class="labelCCType"></label>
 
@@ -1251,7 +1253,7 @@
                 </category>
 
 
-                <category name="switch case" colour="#134796">
+                <category name="switch case" colour="#C2C270">
 
                     <label text="Switch Case Statement" web-class="labelSwitch"></label>
 
@@ -1267,7 +1269,7 @@
             </category>
             <!-- end of Chapter 3 blocks -->
 
-            <category name="Chapter 4" colour="#134796">
+            <category name="Chapter 4" colour="#70C285">
 
                 <label text="Loops" web-class="labelLoops"></label>
 
@@ -1303,7 +1305,7 @@
             </category>
             <!-- end of Chapter 4 blocks -->
 
-            <category name="Chapter 5" colour="#134796">
+            <category name="Chapter 5" colour="#99C270">
 
                 <label text="Function Declaration" web-class="labelFunction"></label>
 
@@ -1328,9 +1330,9 @@
             </category>
             <!-- end of Chapter 5 blocks -->
 
-            <category name="Chapter 6" colour="#134796">
+            <category name="Chapter 6" colour="#70A7C2">
 
-                <category name="Arrays" colour="#134796">
+                <category name="Arrays" colour="#70A7C2">
 
                     <label text="1D Array Declaration" web-class="labelArray"></label>
 
@@ -1415,7 +1417,7 @@
 
                 </category>
 
-                <category name="Vectors" colour="#134796">
+                <category name="Vectors" colour="#C270A7">
 
                     <label text="Vector Declaration" web-class="labelVector"></label>
 
@@ -1483,7 +1485,7 @@
                 <!--                                                                         -->
                 <!-- Author:   David J. Hazell                                               -->
                 <!-- Semester: Spring 2021                                                   -->
-                <category name="Pointers" colour="#134796">
+                <category name="Pointers" colour="#70a7c2">
 
                     <label text="Pointer Declaration" web-class="labelPointer"></label>
                     <block type="pointer_declare"></block>
@@ -1510,7 +1512,7 @@
 
             </category>
             <!-- end of Chapter 6 blocks -->
-
+			
             <!-- Chapter 7                                                               -->
             <!-- Classes 																 -->
             <!--                                                                         -->
@@ -1548,6 +1550,44 @@
             </category>
 
             <!-- end of Chapter 7 blocks -->
+			
+            <!-- Chapter 8                                                               -->
+            <!-- Pointers 																 -->
+            <!--                                                                         -->
+            <!-- Author:   Jacob Patzer                                             	 -->
+            <!-- Semester: Spring 2022                                                   -->
+
+            <category name="Chapter 8" colour="#70a7c2">
+
+                <label text="Pointer Declaration" web-class="labelPointer"></label>
+
+                    <block type="pointer_declare"></block>
+
+                    <label text="Pointer Initialization" web-class="labelPointer"></label>
+
+                    <block type="pointer_getter"></block>
+
+                    <block type="pointer_reference"></block>
+
+                    <block type="pointer_null"></block>
+
+                    <block type="pointer_nullptr"></block>
+
+                    <label text="Pointer Assignment" web-class="labelPointer"></label>
+
+                    <block type="pointer_assignment">
+                        <value name="valinp1">
+                            <shadow type="pointer_getter">
+                                <field name="VAR"></field>
+                            </shadow>
+                        </value>
+                    </block>
+
+                    <label text="Pointer Operators" web-class="labelPointer"></label>
+
+                    <block type="pointer_operator"></block>
+
+            </category>
 
             <!-- Chapter 9                                                               -->
             <!-- Streams 																 -->
@@ -1559,22 +1599,58 @@
 
                 <label text="File Stream Declaration" web-class="labelFile"></label>
 
-                <block type="inFS"></block>
+                <block type="inFS"> </block>
 
                 <block type="outFS"></block>
 
                 <label text="Open / Close" web-class="labelFile"></label>
 
-                <block type="FS_Open"></block>
+                <block type="FS_Open">
+                    <value name="valinp1">
+                        <shadow type="get_str">
+                            <field name="myStr">filename</field>
+                        </shadow>
+                    </value>
+                </block>
 
-                <block type="FS_Close"></block>
+                <block type="FS_Close">
+                    <value name="valinp1">
+                        <shadow type="get_str">
+                            <field name="myStr">filename</field>
+                        </shadow>
+                    </value>
+                </block>
 
                 <label text="File Input / Output" web-class="labelFile"></label>
 
                 <block type="FS_input"></block>
 
+                <block type="FS_output"></block>
+
+                <label text="String Streams" web-class="labelFile"></label>
+
+                <block type="iStream"></block>
+
+                <block type="oStream"></block>
+
+                <block type="outSS"></block>
+
+                <block type="inSS"></block>
+
+                <label text="Overloading Operator" web-class="labelFile"></label>
+
+                
+
             </category>
 
+            <!-- end of Chapter 9 blocks -->
+			
+            <!-- Chapter 10                                                             -->
+            <!-- Inheritance and polymorphism 										    -->
+            <!--                                                                        -->
+            <!-- Author:   Chris Haidas + Lucas Sicard + Nick Konstantinou              -->                               	 -->
+            <!-- Semester: Spring 2022                                                  -->
+			
 			<category name="Chapter 10" colour="#A6885C">
 
 				<label text="Base / Parent / Superclass" web-class="labelClass"></label>
@@ -1584,6 +1660,14 @@
 				<label text="Derived / Child / Subclass" web-class="labelClass"></label>
 
 				<block type="ds_subclass"></block>
+
+                <label text="Polymorphism" web-class="labelClass"></label>
+
+                <block type="virtual"></block>
+
+                <label text="Friend" web-class="labelClass"></label>
+
+                <block type="friend"></block>
 
 			</category>
 
