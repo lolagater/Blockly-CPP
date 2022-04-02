@@ -3,7 +3,7 @@
  */
 
 /**Set the color of blocks to purple */
-var fileHue = 270;
+var fileHUE = 270;
 
 /** input-Filestream initialization block */
 Blockly.Blocks["inFS"] = {
@@ -13,7 +13,7 @@ Blockly.Blocks["inFS"] = {
         /** Adds a notch to connect down. */
         this.setNextStatement(true, null);
         /** Sets color of the block. */
-        this.setColour(fileHue);
+        this.setColour(fileHUE);
         /** This tooltip text appears when hovering block. */
         this.setTooltip("This block declares an file input stream.");
         /** The Help URL directs to hyperlink when a block is right clicked and Help is selected. */
@@ -29,16 +29,47 @@ Blockly.Blocks["inFS"] = {
     /** The onchange function is called when a block is moved or updated. */
     onchange: function () {
         this.allocateValues();
+        this.allocateWarnings();
     },
 
     allocateValues: function () {
         this.streamName = (this.getFieldValue('myStream'));
     },
 
+    allocateWarnings: function () {
+        var TT = "";
+
+        //Check library starts
+        //create an instance of C_Include
+        var librarySearch = C_Include;
+
+        var libFound = librarySearch.search_library(this, ['include_fstream']);
+
+        if (!libFound) {
+            TT += "Error, <fstream> library must be included.\n";
+        }
+        //Check library end
+
+
+        //Check if the block is within a scope
+        let Scope = C_Scope;
+
+        if (!Scope.node.is_in_scope(this, ['isFunc'])) {
+            TT += "Error, this block must be inside of a function or main.\n";
+        }
+
+        //
+        if (TT.length > 0) {
+            this.setWarningText(TT);
+        } else {
+            this.setWarningText(null);
+        }
+    }
+
 }
 
 Blockly.C["inFS"] = function(block) {
-    var code ='ifstream ' + this.myStream + ';\n';
+    var code ='ifstream ' + this.streamName + ';\n';
     return code;
 }
 
@@ -50,7 +81,7 @@ Blockly.Blocks["outFS"] = {
         /** Adds a notch to connect down. */
         this.setNextStatement(true, null);
         /** Sets color of the block. */
-        this.setColour(fileHue);
+        this.setColour(fileHUE);
         /** This tooltip text appears when hovering block. */
         this.setTooltip("This block declares an file output stream.");
         /** The Help URL directs to hyperlink when a block is right clicked and Help is selected. */
@@ -67,16 +98,47 @@ Blockly.Blocks["outFS"] = {
     /** The onchange function is called when a block is moved or updated. */
     onchange: function () {
         this.allocateValues();
+        this.allocateWarnings();
     },
 
     allocateValues: function () {
         this.streamName = (this.getFieldValue('myStream'));
     },
 
+    allocateWarnings: function () {
+        var TT = "";
+
+        //Check library starts
+        //create an instance of C_Include
+        var librarySearch = C_Include;
+
+        var libFound = librarySearch.search_library(this, ['include_fstream']);
+
+        if (!libFound) {
+            TT += "Error, <fstream> library must be included.\n";
+        }
+        //Check library end
+
+
+        //Check if the block is within a scope
+        let Scope = C_Scope;
+
+        if (!Scope.node.is_in_scope(this, ['isFunc'])) {
+            TT += "Error, this block must be inside of a function or main.\n";
+        }
+
+        //
+        if (TT.length > 0) {
+            this.setWarningText(TT);
+        } else {
+            this.setWarningText(null);
+        }
+    }
+
 }
 
 Blockly.C["outFS"] = function(block) {
-    var code ='ofstream ' + this.myStream + ';\n';
+    var code ='ofstream ' + this.streamName + ';\n';
     return code;
 }
 
@@ -88,7 +150,7 @@ Blockly.Blocks["iStream"] = {
         /** Adds a notch to connect down. */
         this.setNextStatement(true, null);
         /** Sets color of the block. */
-        this.setColour(fileHue);
+        this.setColour(fileHUE);
         /** This tooltip text appears when hovering block. */
         this.setTooltip("This block declares an file output stream.");
         /** The Help URL directs to hyperlink when a block is right clicked and Help is selected. */
@@ -105,11 +167,42 @@ Blockly.Blocks["iStream"] = {
     /** The onchange function is called when a block is moved or updated. */
     onchange: function () {
         this.allocateValues();
+        this.allocateWarnings();
     },
 
     allocateValues: function () {
         this.streamName = (this.getFieldValue('myStream'));
     },
+
+    allocateWarnings: function () {
+        var TT = "";
+
+        //Check library starts
+        //create an instance of C_Include
+        var librarySearch = C_Include;
+
+        var libFound = librarySearch.search_library(this, ['include_sstream']);
+
+        if (!libFound) {
+            TT += "Error, <sstream> library must be included.\n";
+        }
+        //Check library end
+
+
+        //Check if the block is within a scope
+        let Scope = C_Scope;
+
+        if (!Scope.node.is_in_scope(this, ['isFunc'])) {
+            TT += "Error, this block must be inside of a function or main.\n";
+        }
+
+        //
+        if (TT.length > 0) {
+            this.setWarningText(TT);
+        } else {
+            this.setWarningText(null);
+        }
+    }
 
 }
 
@@ -125,7 +218,7 @@ Blockly.Blocks["oStream"] = {
         /** Adds a notch to connect down. */
         this.setNextStatement(true, null);
         /** Sets color of the block. */
-        this.setColour(fileHue);
+        this.setColour(fileHUE);
         /** This tooltip text appears when hovering block. */
         this.setTooltip("This block declares an file output stream.");
         /** The Help URL directs to hyperlink when a block is right clicked and Help is selected. */
@@ -142,11 +235,42 @@ Blockly.Blocks["oStream"] = {
     /** The onchange function is called when a block is moved or updated. */
     onchange: function () {
         this.allocateValues();
+        this.allocateWarnings();
     },
 
     allocateValues: function () {
         this.streamName = (this.getFieldValue('myStream'));
     },
+
+    allocateWarnings: function () {
+        var TT = "";
+
+        //Check library starts
+        //create an instance of C_Include
+        var librarySearch = C_Include;
+
+        var libFound = librarySearch.search_library(this, ['include_sstream']);
+
+        if (!libFound) {
+            TT += "Error, <sstream> library must be included.\n";
+        }
+        //Check library end
+
+
+        //Check if the block is within a scope
+        let Scope = C_Scope;
+
+        if (!Scope.node.is_in_scope(this, ['isFunc'])) {
+            TT += "Error, this block must be inside of a function or main.\n";
+        }
+
+        //
+        if (TT.length > 0) {
+            this.setWarningText(TT);
+        } else {
+            this.setWarningText(null);
+        }
+    }
 
 }
 
@@ -166,7 +290,7 @@ Blockly.Blocks["FS_Open"] = {
         /** Adds a notch to connect down. */
         this.setNextStatement(true, null);
         /** Sets color of the block. */
-        this.setColour(fileHue);
+        this.setColour(fileHUE);
         /** This tooltip text appears when hovering block. */
         this.setTooltip("This block declares an file input stream.");
         /** The Help URL directs to hyperlink when a block is right clicked and Help is selected. */
@@ -184,7 +308,7 @@ Blockly.Blocks["FS_Open"] = {
 
     /** The onchange function is called when a block is moved or updated. */
     onchange: function () {
-        this.allocateWarnings;
+        this.allocateWarnings();
     },
 
     allocateWarnings: function () {
@@ -224,7 +348,7 @@ Blockly.Blocks["FS_Close"] = {
         /** Adds a notch to connect down. */
         this.setNextStatement(true, null);
         /** Sets color of the block. */
-        this.setColour(fileHue);
+        this.setColour(fileHUE);
         /** This tooltip text appears when hovering block. */
         this.setTooltip("This block declares an file input stream.");
         /** The Help URL directs to hyperlink when a block is right clicked and Help is selected. */
@@ -245,10 +369,12 @@ Blockly.Blocks["FS_Close"] = {
 
     /** The onchange function is called when a block is moved or updated. */
     onchange: function () {
-        this.allocateWarnings;
+        this.allocateWarnings();
     },
 
     allocateWarnings: function () {
+        var TT = "";
+        
         let librarySearch = C_Include;
 
         var libFound = librarySearch.search_library(this, ['include_fstream']);
@@ -256,6 +382,13 @@ Blockly.Blocks["FS_Close"] = {
         if (!libFound) {
             TT += "Error, <fstream> library must be included.\n";
         }
+
+        if (TT.length > 0) {
+            this.setWarningText(TT);
+        } else {
+            this.setWarningText(null);
+        }
+
     }
 
 }
@@ -269,7 +402,30 @@ Blockly.C["FS_Close"] = function(block) {
     return code + ';\n';
 }
 
+Blockly.Blocks['FS_stream_mutator'] = {
+    init: function () {
+        this.setColour(fileHUE);
+        this.appendDummyInput().appendField('print');
+        this.appendStatementInput('STACK');
 
+        this.setPreviousStatement(false);
+        this.setNextStatement(false);
+        this.setTooltip('');
+        this.contextMenu = false;
+    }
+};
+
+Blockly.Blocks['FS_stream_add'] = {
+    init: function () {
+        this.setColour(fileHUE);
+        this.appendDummyInput().appendField('add');
+
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip('');
+        this.contextMenu = false;
+    }
+};
 
 Blockly.Blocks['FS_input'] = {
     init: function () {
@@ -280,7 +436,7 @@ Blockly.Blocks['FS_input'] = {
             .setAlign(Blockly.ALIGN_RIGHT);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(fileHue);
+        this.setColour(fileHUE);
         this.setTooltip("Grabs input from file.\nRequires - <fstream>");
         this.setHelpUrl("https://www.cplusplus.com/doc/tutorial/files/");
 
@@ -464,12 +620,12 @@ Blockly.C['FS_input'] = function (block) {
     if (this.FSStreamCount_ < 1 && !val) {
         WT = true;
     } else if (this.FSStreamCount_ < 1 && val) {
-        code += std + 'inFS >> ' + val;
+        code += 'inFS >> ' + val;
     } else if (this.FSStreamCount_ > 0 && !val) {
         WT = true;
     } else {
 
-        code += std + 'inFS >> ' + val;
+        code += 'inFS >> ' + val;
 
         for (var i = 1; i <= this.FSStreamCount_; ++i) {
             var arg = Blockly.C.valueToCode(block, 'valinp' + i, Blockly.C.ORDER_NONE);
@@ -497,6 +653,31 @@ Blockly.C['FS_input'] = function (block) {
     return code;
 };
 
+Blockly.Blocks['oFS_stream_mutator'] = {
+    init: function () {
+        this.setColour(fileHUE);
+        this.appendDummyInput().appendField('print');
+        this.appendStatementInput('STACK');
+
+        this.setPreviousStatement(false);
+        this.setNextStatement(false);
+        this.setTooltip('');
+        this.contextMenu = false;
+    }
+};
+
+Blockly.Blocks['oFS_stream_add'] = {
+    init: function () {
+        this.setColour(fileHUE);
+        this.appendDummyInput().appendField('add');
+
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip('');
+        this.contextMenu = false;
+    }
+};
+
 Blockly.Blocks['FS_output'] = {
     init: function () {
 
@@ -506,49 +687,49 @@ Blockly.Blocks['FS_output'] = {
             .setAlign(Blockly.ALIGN_RIGHT);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(fileHue);
+        this.setColour(fileHUE);
         this.setTooltip("Grabs input from file.\nRequires - <fstream>");
         this.setHelpUrl("https://www.cplusplus.com/doc/tutorial/files/");
 
-        this.setMutator(new Blockly.Mutator(['FS_stream_add']));
+        this.setMutator(new Blockly.Mutator(['oFS_stream_add']));
 
-        this.FSStreamCount_ = 0;
+        this.oFSStreamCount_ = 0;
 
         this.setFSCheck = 'Variable';
 
     },
 
     mutationToDom: function () {
-        if (!this.FSStreamCount_) {
+        if (!this.oFSStreamCount_) {
             return null;
         }
         var container = document.createElement('mutation');
 
-        if (this.FSStreamCount_) {
-            container.setAttribute('printadd', this.FSStreamCount_);
+        if (this.oFSStreamCount_) {
+            container.setAttribute('printadd', this.oFSStreamCount_);
         }
 
         return container;
     },
 
     domToMutation: function (xmlElement) {
-        this.FSStreamCount_ = parseInt(xmlElement.getAttribute('printadd'), 10);
-        for (var i = 1; i <= this.FSStreamCount_; i++) {
+        this.oFSStreamCount_ = parseInt(xmlElement.getAttribute('printadd'), 10);
+        for (var i = 1; i <= this.oFSStreamCount_; i++) {
             this.appendValueInput('valinp' + i).setCheck(this.setFSCheck).appendField('inFS >> ').setAlign(Blockly.ALIGN_RIGHT);
         }
     },
 
     decompose: function (workspace) {
-        var containerBlock = workspace.newBlock('FS_stream_mutator');
+        var containerBlock = workspace.newBlock('oFS_stream_mutator');
         containerBlock.initSvg();
 
         var connection = containerBlock.getInput('STACK').connection;
 
-        for (var i = 1; i <= this.FSStreamCount_; ++i) {
-            var add = workspace.newBlock('FS_stream_add');
+        for (var i = 1; i <= this.oFSStreamCount_; ++i) {
+            var add = workspace.newBlock('oFS_stream_add');
             add.initSvg();
 
-            console.log(this.FSStreamCount_);
+            console.log(this.oFSStreamCount_);
             connection.connect(add.previousConnection);
             connection = add.nextConnection;
         }
@@ -556,20 +737,20 @@ Blockly.Blocks['FS_output'] = {
     },
 
     compose: function (containerBlock) {
-        for (var i = this.FSStreamCount_; i > 0; i--) {
+        for (var i = this.oFSStreamCount_; i > 0; i--) {
             this.removeInput('valinp' + i);
         }
-        this.FSStreamCount_ = 0;
+        this.oFSStreamCount_ = 0;
 
         var clauseBlock = containerBlock.getInputTargetBlock('STACK');
         while (clauseBlock) {
 
             switch (clauseBlock.type) {
 
-                case 'FS_stream_add':
-                    this.FSStreamCount_++;
-                    var printInput = this.appendValueInput('valinp' + this.FSStreamCount_)
-                        .setCheck(this.setFSCheck).appendField('inFS >> ').setAlign(Blockly.ALIGN_RIGHT);
+                case 'oFS_stream_add':
+                    this.oFSStreamCount_++;
+                    var printInput = this.appendValueInput('valinp' + this.oFSStreamCount_)
+                        .setCheck(this.setFSCheck).appendField('outFS >> ').setAlign(Blockly.ALIGN_RIGHT);
 
                     if (clauseBlock.valueConnection_) {
                         printInput.connection.connect(clauseBlock.valueConnection_);
@@ -593,7 +774,7 @@ Blockly.Blocks['FS_output'] = {
 
             switch (clauseBlock.type) {
 
-                case 'FS_stream_add':
+                case 'oFS_stream_add':
                     var inputPrint = this.getInput('valinp' + i);
                     clauseBlock.valueConnection_ = inputPrint && inputPrint.connection.targetConnection;
                     clauseBlock.statementConnection_ = i++;
@@ -687,17 +868,17 @@ Blockly.C['FS_output'] = function (block) {
         std = 'std::';
     }
 
-    if (this.FSStreamCount_ < 1 && !val) {
+    if (this.oFSStreamCount_ < 1 && !val) {
         WT = true;
-    } else if (this.FSStreamCount_ < 1 && val) {
-        code += std + 'inFS >> ' + val;
-    } else if (this.FSStreamCount_ > 0 && !val) {
+    } else if (this.oFSStreamCount_ < 1 && val) {
+        code += 'outFS >> ' + val;
+    } else if (this.oFSStreamCount_ > 0 && !val) {
         WT = true;
     } else {
 
-        code += std + 'inFS >> ' + val;
+        code += 'outFS >> ' + val;
 
-        for (var i = 1; i <= this.FSStreamCount_; ++i) {
+        for (var i = 1; i <= this.oFSStreamCount_; ++i) {
             var arg = Blockly.C.valueToCode(block, 'valinp' + i, Blockly.C.ORDER_NONE);
             var childConnection = this.inputList[i].connection;
             var childBlock = childConnection.targetBlock();
@@ -723,6 +904,31 @@ Blockly.C['FS_output'] = function (block) {
     return code;
 };
 
+Blockly.Blocks['outSS_stream_mutator'] = {
+    init: function () {
+        this.setColour(fileHUE);
+        this.appendDummyInput().appendField('print');
+        this.appendStatementInput('STACK');
+
+        this.setPreviousStatement(false);
+        this.setNextStatement(false);
+        this.setTooltip('');
+        this.contextMenu = false;
+    }
+};
+
+Blockly.Blocks['outSS_stream_add'] = {
+    init: function () {
+        this.setColour(fileHUE);
+        this.appendDummyInput().appendField('add');
+
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip('');
+        this.contextMenu = false;
+    }
+};
+
 Blockly.Blocks['outSS'] = {
     init: function () {
         this.appendValueInput("valinp0")
@@ -731,7 +937,7 @@ Blockly.Blocks['outSS'] = {
 
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(fileHue);
+        this.setColour(fileHUE);
 
         this.setMutator(new Blockly.Mutator(['outSS_stream_add']));
 
@@ -760,12 +966,12 @@ Blockly.Blocks['outSS'] = {
     },
 
     decompose: function (workspace) {
-        var containerBlock = workspace.newBlock('outSS_mutator');
+        var containerBlock = workspace.newBlock('outSS_stream_mutator');
         containerBlock.initSvg();
 
         var connection = containerBlock.getInput('STACK').connection;
         for (var i = 1; i <= this.outSStreamCount_; ++i) {
-            var add = workspace.newBlock('outSS_add');
+            var add = workspace.newBlock('outSS_stream_add');
             add.initSvg();
 
             connection.connect(add.previousConnection);
@@ -785,7 +991,7 @@ Blockly.Blocks['outSS'] = {
 
         while (clauseBlock) {
             switch (clauseBlock.type) {
-                case 'outSS_add':
+                case 'outSS_stream_add':
                     this.outSStreamCount_++;
 
                     var printInput = this.appendValueInput('valinp' + this.outSStreamCount_)
@@ -808,8 +1014,11 @@ Blockly.Blocks['outSS'] = {
         var clauseBlock = containerBlock.getInputTargetBlock('STACK');
         var i = 1;
         while (clauseBlock) {
+
             switch (clauseBlock.type) {
-                case 'outSS_add':
+
+                case 'outSS_stream_add':
+
                     var inputPrint = this.getInput('valinp' + i);
 
                     clauseBlock.valueConnection_ = inputPrint && inputPrint.connection.targetConnection;
@@ -826,7 +1035,82 @@ Blockly.Blocks['outSS'] = {
     },
 
     onchange: function () {
+        this.allocateWarnings();
     },
+
+    allocateWarnings: function () {
+        var TT = "";
+
+        //Cout type check
+
+        //Library Check
+        let librarySearch = C_Include;
+
+        var libFound = librarySearch.search_library(this, ['include_sstream']);
+
+        if (!libFound) {
+            TT += "Error, <sstream> library must be included.\n";
+        }
+
+        //Libary check end
+
+        //Check if this block is in a proper scope
+
+        let Scope = C_Scope;
+
+        if (!Scope.node.is_in_scope(this, ['isFunc'])) {
+            TT += "Error, this block must be inside of a function or main.\n";
+        }
+
+        //Proper scope end
+
+        if (TT.length > 0) {
+            this.setWarningText(TT);
+        } else {
+            this.setWarningText(null);
+        }
+
+    },
+    // Hao: Add iostream for cin
+    customContextMenu: function (options) {
+        //save the current scope
+        let BlockScope = this;
+
+        var librarySearch = C_Include;
+        var libFound = librarySearch.search_library(this, ['include_sstream']);
+
+        //create an initialization block
+        if (!libFound) {
+
+            automate_library_string = {
+                text: "include <sstream>",
+                enabled: true,
+
+                callback: function () {
+                    var newBlock = BlockScope.workspace.newBlock('include_sstream');
+                    let ptr = BlockScope;
+
+                    while (ptr) {
+                        //if we're at the top
+                        if (!ptr.parentBlock_) {
+                            newBlock.previousConnection.connect(ptr.previousConnection.targetConnection);
+                            newBlock.nextConnection.connect(ptr.previousConnection);
+                            newBlock.initSvg();
+                            newBlock.render();
+
+                            return;
+                        }
+
+                        ptr = ptr.parentBlock_;
+                    }
+
+                }
+
+            }
+            options.push(automate_library_string);
+
+        }
+    }
 
 };
 
@@ -858,6 +1142,31 @@ Blockly.C['outSS'] = function (block) {
     return code;
 };
 
+Blockly.Blocks['inSS_stream_mutator'] = {
+    init: function () {
+        this.setColour(fileHUE);
+        this.appendDummyInput().appendField('print');
+        this.appendStatementInput('STACK');
+
+        this.setPreviousStatement(false);
+        this.setNextStatement(false);
+        this.setTooltip('');
+        this.contextMenu = false;
+    }
+};
+
+Blockly.Blocks['inSS_stream_add'] = {
+    init: function () {
+        this.setColour(fileHUE);
+        this.appendDummyInput().appendField('add');
+
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip('');
+        this.contextMenu = false;
+    }
+};
+
 Blockly.Blocks['inSS'] = {
     init: function () {
         this.appendValueInput("valinp0")
@@ -866,7 +1175,7 @@ Blockly.Blocks['inSS'] = {
 
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(fileHue);
+        this.setColour(fileHUE);
 
         this.setMutator(new Blockly.Mutator(['inSS_stream_add']));
 
@@ -895,12 +1204,12 @@ Blockly.Blocks['inSS'] = {
     },
 
     decompose: function (workspace) {
-        var containerBlock = workspace.newBlock('inSS_mutator');
+        var containerBlock = workspace.newBlock('inSS_stream_mutator');
         containerBlock.initSvg();
 
         var connection = containerBlock.getInput('STACK').connection;
         for (var i = 1; i <= this.inSStreamCount_; ++i) {
-            var add = workspace.newBlock('inSS_add');
+            var add = workspace.newBlock('inSS_stream_add');
             add.initSvg();
 
             connection.connect(add.previousConnection);
@@ -917,10 +1226,11 @@ Blockly.Blocks['inSS'] = {
         this.inSStreamCount_ = 0;
 
         var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-
         while (clauseBlock) {
+
             switch (clauseBlock.type) {
-                case 'inSS_add':
+            
+                case 'inSS_stream_add':
                     this.inSStreamCount_++;
 
                     var printInput = this.appendValueInput('valinp' + this.inSStreamCount_)
@@ -929,6 +1239,7 @@ Blockly.Blocks['inSS'] = {
                     if (clauseBlock.valueConnection_) {
                         printInput.connection.connect(clauseBlock.valueConnection_);
                     }
+
                     break;
 
                 default:
@@ -944,7 +1255,7 @@ Blockly.Blocks['inSS'] = {
         var i = 1;
         while (clauseBlock) {
             switch (clauseBlock.type) {
-                case 'inSS_add':
+                case 'inSS_stream_add':
                     var inputPrint = this.getInput('valinp' + i);
 
                     clauseBlock.valueConnection_ = inputPrint && inputPrint.connection.targetConnection;
@@ -961,7 +1272,82 @@ Blockly.Blocks['inSS'] = {
     },
 
     onchange: function () {
+        this.allocateWarnings();
     },
+
+    allocateWarnings: function () {
+        var TT = "";
+
+        //Cout type check
+
+        //Library Check
+        let librarySearch = C_Include;
+
+        var libFound = librarySearch.search_library(this, ['include_sstream']);
+
+        if (!libFound) {
+            TT += "Error, <sstream> library must be included.\n";
+        }
+
+        //Libary check end
+
+        //Check if this block is in a proper scope
+
+        let Scope = C_Scope;
+
+        if (!Scope.node.is_in_scope(this, ['isFunc'])) {
+            TT += "Error, this block must be inside of a function or main.\n";
+        }
+
+        //Proper scope end
+
+        if (TT.length > 0) {
+            this.setWarningText(TT);
+        } else {
+            this.setWarningText(null);
+        }
+
+    },
+    // Hao: Add iostream for cin
+    customContextMenu: function (options) {
+        //save the current scope
+        let BlockScope = this;
+
+        var librarySearch = C_Include;
+        var libFound = librarySearch.search_library(this, ['include_sstream']);
+
+        //create an initialization block
+        if (!libFound) {
+
+            automate_library_string = {
+                text: "include <sstream>",
+                enabled: true,
+
+                callback: function () {
+                    var newBlock = BlockScope.workspace.newBlock('include_sstream');
+                    let ptr = BlockScope;
+
+                    while (ptr) {
+                        //if we're at the top
+                        if (!ptr.parentBlock_) {
+                            newBlock.previousConnection.connect(ptr.previousConnection.targetConnection);
+                            newBlock.nextConnection.connect(ptr.previousConnection);
+                            newBlock.initSvg();
+                            newBlock.render();
+
+                            return;
+                        }
+
+                        ptr = ptr.parentBlock_;
+                    }
+
+                }
+
+            }
+            options.push(automate_library_string);
+
+        }
+    }
 
 };
 
@@ -992,6 +1378,36 @@ Blockly.C['inSS'] = function (block) {
     code += ';\n';
     return code;
 };
+
+Blockly.Blocks['insertionOverload'] = {
+    init: function() {
+        this.appendValueInput("operatorBlock")
+            .setCheck("isClass")
+            .appendField(new Blockly.FieldDropdown([["class","Myclass"], ["class","Myclass1"], ["class","Myclass2"]]), "className")
+            .appendField("& CLASS::operator<<(");
+        this.appendDummyInput()
+            .appendField(") {");
+        this.appendStatementInput("statementInput")
+            .setCheck(null);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(fileHUE);
+        this.setTooltip("allows for an insertion overload to be defined");
+        this.setHelpUrl("");
+
+        this.setDataStr('isFunc', true);
+
+        this.paramCount_ = 0;
+
+    }
+  };
+
+  Blockly.C['insertionOverload'] = function (block) {
+    var code = '123';
+
+    return code;
+
+  }
 
 
     
