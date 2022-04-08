@@ -18,6 +18,8 @@ Blockly.Blocks["inFS"] = {
         this.setTooltip("This block declares an file input stream.");
         /** The Help URL directs to hyperlink when a block is right clicked and Help is selected. */
         this.setHelpUrl("https://www.cplusplus.com/doc/tutorial/files/");
+        /** Sets data structure to . */
+        this.setDataStr("isVar", true);
 
         /** parameter area */
         this.appendValueInput('valinp1') /** name of filestream */
@@ -300,7 +302,7 @@ Blockly.Blocks["FS_Open"] = {
 
         /** parameter area */
         this.appendValueInput('valinp1') /** name of filestream */
-            .appendField(new Blockly.FieldDropdown([['myFS', 'myFS'], ['myFS2', 'myFS2']]), 'fsName')
+            .appendField(new Blockly.FieldDropdown(this.allocateDropdown.bind(this)), 'fsName')
             .appendField('.open(');
         this.appendDummyInput()
             .appendField(')');
@@ -309,6 +311,8 @@ Blockly.Blocks["FS_Open"] = {
     /** The onchange function is called when a block is moved or updated. */
     onchange: function () {
         this.allocateWarnings();
+        this.allocateDropdown();
+        this.allocateValues();
     },
 
     allocateWarnings: function () {
@@ -328,7 +332,36 @@ Blockly.Blocks["FS_Open"] = {
             this.setWarningText(null);
         }
 
+    },
+
+    allocateDropdown: function () {
+        var options = [["",""]];
+
+        let ptr = this.parentBlock_;
+
+        if (ptr !== null) {
+          ptr = ptr.parentBlock_;
+        }
+
+        while (ptr) {
+            if (ptr.getDataStr() === "isVar"){
+
+                    options.push([ptr.getVar_, ptr.getVar_]);
+            }
+            ptr = ptr.parentBlock_;
+        }
+        return options;
+    },
+
+    allocateValues: function () {
+
+		this.parentClass_ = [];
+        this.getVar_ = this.getField("fsName").getText();
+		this.parentClass_.push(this.getVar_);
+        
     }
+
+    
 
 }
 
