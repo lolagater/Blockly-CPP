@@ -1533,7 +1533,7 @@ Blockly.Blocks['insertionOverload'] = {
         this.setHelpUrl("");
         this.setDataStr('isFunc', true);
 
-        this.paramCount_ = 0;
+        this.paramProp_ = [false, "", "", "", true];
 
     },
     
@@ -1543,6 +1543,8 @@ Blockly.Blocks['insertionOverload'] = {
     },
 
     allocateValues : function () {
+        console.log(this);
+
         let ptr = this.getSurroundParent();
         
         if (ptr != null && ptr.getDataStr() == "isClass") {
@@ -1552,6 +1554,13 @@ Blockly.Blocks['insertionOverload'] = {
         } else {
             this.setFieldValue("null", "className1");
             this.setFieldValue("null", "className2");
+        }
+
+        ptr = this.getInputTargetBlock("operatorBlock");
+    
+
+        if ((ptr) && ptr.type == "function_parameters") {
+            this.paramProp_ = ptr.paramProp_;
         }
 
     },
@@ -1592,21 +1601,15 @@ Blockly.Blocks['insertionOverload'] = {
 
   Blockly.C['insertionOverload'] = function (block) {
 
-    let valueInput = Blockly.C.valueToCode(block, 'valueInput', Blockly.C.ORDER_ATOMIC);
     let statementInput = Blockly.C.statementToCode(block, 'statementInput');
     let code = '';
+    let constCheck = '';
 
-    if (!block.isConstructor_ && !block.isDestructor_) {
-        if (block.isConst_) {
-            code += "const ";
-        }
-
-        if (block.type_ === "string" && !C_Include.using.std(block)) {
-            code += "std::";
-        }
+    if (this.paramProp_[0]) {
+        constCheck += "const ";
     }
 
-    code += this.getVar_ + "& " + this.getVar_ + "::operator<<(" + valueInput + ") {\n"
+    code += this.getVar_ + "& " + this.getVar_ + "::operator<<(" + constCheck + this.paramProp_[1] + this.paramProp_[2] + " " + this.paramProp_[3] + ") {\n"
         + statementInput
         + "}\n";
 
