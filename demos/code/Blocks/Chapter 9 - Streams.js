@@ -217,7 +217,7 @@ Blockly.Blocks["iStream"] = {
 }
 
 Blockly.C["iStream"] = function(block) {
-    var code ='istringstream ' + this.streamName + ';\n';
+    var code ='istringstream ' + this.getVar_ + ';\n';
     return code;
 }
 
@@ -287,7 +287,7 @@ Blockly.Blocks["oStream"] = {
 }
 
 Blockly.C["oStream"] = function(block) {
-    var code = 'ostringstream ' + this.streamName + ';\n';
+    var code = 'ostringstream ' + this.getVar_ + ';\n';
 
     return code;
 }
@@ -1545,6 +1545,7 @@ Blockly.Blocks['insertionOverload'] = {
     
     onchange : function () {
         this.allocateValues()
+        this.allocateWarnings()
     },
 
     allocateValues : function () {
@@ -1559,7 +1560,26 @@ Blockly.Blocks['insertionOverload'] = {
             this.setFieldValue("null", "className2");
         }
 
-    }
+    },
+
+    allocateWarnings: function() {
+        let warn = "";
+        let ptr = this.getSurroundParent();
+    
+        if ((ptr) && (ptr.getDataStr() !== "isClass")) {
+          warn += "Error, operator must be defined in a class.";
+        }
+    
+        if (this.parentBlock_ === null) {
+          warn += "Error, operator must be defined in a class.";
+        }
+    
+        if (warn.length > 0) {
+          this.setWarningText(warn);
+        } else {
+          this.setWarningText(null);
+        }
+      }
 
   };
     
