@@ -1434,9 +1434,9 @@ Blockly.Blocks['insertionOverload'] = {
     init: function() {
         this.appendValueInput("operatorBlock")
             .setCheck("isClass")
-            .appendField("null", "className")
+            .appendField("null", "className1")
             .appendField("&")
-            .appendField("null", "className")
+            .appendField("null", "className2")
             .appendField("::operator<<(");
         this.appendDummyInput()
             .appendField(") {");
@@ -1463,7 +1463,12 @@ Blockly.Blocks['insertionOverload'] = {
         
         if (ptr != null && ptr.getDataStr() == "isClass") {
             this.getVar_ = ptr.getVar_;
-            this.setFieldValue(this.getVar_, "className");
+            this.setFieldValue(this.getVar_, "className1");
+            this.setFieldValue(this.getVar_, "className2");
+        } else {
+            console.log("check1");
+            this.setFieldValue("null", "className1");
+            this.setFieldValue("null", "className2");
         }
 
     }
