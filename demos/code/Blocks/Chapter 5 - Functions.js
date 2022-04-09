@@ -407,7 +407,7 @@ Blockly.Blocks['function_parameters'] = {
 
         if (!this.parentBlock_) {
             TT += 'Error, this block has a return and must be connected.\n';
-        } else if (!["function_parameters", "function_declaration", "pointer_operator", "class_constructor", "class_parameters", "class_function_definition"].includes(ptr.type)) {
+        } else if (!["function_parameters", "function_declaration", "pointer_operator", "class_constructor", "class_parameters", "class_function_definition", "insertionOverload"].includes(ptr.type)) {
             TT += 'Error, parameter block must be connected to a parameter block or a function block.\n';
         }
 

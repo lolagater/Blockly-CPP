@@ -388,14 +388,8 @@ Blockly.Blocks["FS_Close"] = {
         /** parameter area */
         this.appendValueInput('valinp1') /** name of filestream */
             .appendField(new Blockly.FieldDropdown(this.allocateDropdown.bind(this)), 'fsName')
-            .appendField('.close(');
-        this.appendDummyInput()
-            .appendField(')');
-
+            .appendField('.close()');
     
-        /** Blocks will appear connected across one line. */
-        this.setInputsInline(true);
-
     },
 
     /** The onchange function is called when a block is moved or updated. */
@@ -1537,7 +1531,6 @@ Blockly.Blocks['insertionOverload'] = {
         this.setColour(fileHUE);
         this.setTooltip("allows for an insertion overload to be defined");
         this.setHelpUrl("");
-
         this.setDataStr('isFunc', true);
 
         this.paramCount_ = 0;
@@ -1580,14 +1573,42 @@ Blockly.Blocks['insertionOverload'] = {
         } else {
           this.setWarningText(null);
         }
+
+        let inputBlock = this.getInputTargetBlock('valueInput');
+        while (inputBlock) {
+
+            if (inputBlock.type !== "function_parameters" && inputBlock.type !== "pointer_operator" && inputBlock.type !== "class_parameters" && inputBlock.type !== "class_function_definition") {
+                TT += 'Error, only the function parameter block is allowed in the function parameter.\n';
+                break;
+            }
+
+            inputBlock = inputBlock.childBlocks_[0];
+        }
+
       }
 
   };
     
-  
 
   Blockly.C['insertionOverload'] = function (block) {
-    var code = '123';
+
+    let valueInput = Blockly.C.valueToCode(block, 'valueInput', Blockly.C.ORDER_ATOMIC);
+    let statementInput = Blockly.C.statementToCode(block, 'statementInput');
+    let code = '';
+
+    if (!block.isConstructor_ && !block.isDestructor_) {
+        if (block.isConst_) {
+            code += "const ";
+        }
+
+        if (block.type_ === "string" && !C_Include.using.std(block)) {
+            code += "std::";
+        }
+    }
+
+    code += this.getVar_ + "& " + this.getVar_ + "::operator<<(" + valueInput + ") {\n"
+        + statementInput
+        + "}\n";
 
     return code;
 
