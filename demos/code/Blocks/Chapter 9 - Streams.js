@@ -21,12 +21,14 @@ Blockly.Blocks["inFS"] = {
         /** Sets data structure to . */
         this.setDataStr("isVar", true);
 
+        this.typeName_ = 'ifstream';
+
         /** parameter area */
         this.appendValueInput('valinp1') /** name of filestream */
             .appendField('ifstream ')
             .appendField(new Blockly.FieldTextInput('name'), 'myStream')
             .setCheck(null);
-        this.typeName_ = 'ifstream';
+        
     },
 
     /** The onchange function is called when a block is moved or updated. */
@@ -161,6 +163,8 @@ Blockly.Blocks["iStream"] = {
         this.setTooltip("This block declares an file output stream.");
         /** The Help URL directs to hyperlink when a block is right clicked and Help is selected. */
         this.setHelpUrl("https://www.cplusplus.com/doc/tutorial/files/");
+        this.setDataStr("isVar", true);
+        this.typeName_ = 'isstream';
 
         /** parameter area */
         this.appendValueInput('valinp1') /** name of filestream */
@@ -177,7 +181,7 @@ Blockly.Blocks["iStream"] = {
     },
 
     allocateValues: function () {
-        this.streamName = (this.getFieldValue('myStream'));
+        this.getVar_ = this.getField("myStream").getText();
     },
 
     allocateWarnings: function () {
@@ -229,6 +233,8 @@ Blockly.Blocks["oStream"] = {
         this.setTooltip("This block declares an file output stream.");
         /** The Help URL directs to hyperlink when a block is right clicked and Help is selected. */
         this.setHelpUrl("https://www.cplusplus.com/doc/tutorial/files/");
+        this.setDataStr("isVar", true);
+        this.typeName_ = 'osstream';
 
         /** parameter area */
         this.appendValueInput('valinp1') /** name of filestream */
@@ -245,7 +251,7 @@ Blockly.Blocks["oStream"] = {
     },
 
     allocateValues: function () {
-        this.streamName = (this.getFieldValue('myStream'));
+        this.getVar_ = this.getField("myStream").getText();
     },
 
     allocateWarnings: function () {
@@ -344,10 +350,7 @@ Blockly.Blocks["FS_Open"] = {
         let ptr = this.parentBlock_;
 
         while (ptr) {
-            console.log(ptr)
-            console.log(ptr.typeName_)
             if (ptr.getDataStr() === "isVar" && (ptr.typeName_ == "ifstream" ||  ptr.typeName_ == "ofstream")) {
-                    console.log(ptr.typeName_)
                     options.push([ptr.getVar_, ptr.getVar_]);
             }
             ptr = ptr.parentBlock_;
@@ -427,10 +430,7 @@ Blockly.Blocks["FS_Close"] = {
         let ptr = this.parentBlock_;
 
         while (ptr) {
-            console.log(ptr)
-            console.log(ptr.typeName_)
             if (ptr.getDataStr() === "isVar" && (ptr.typeName_ == "ifstream" ||  ptr.typeName_ == "ofstream")) {
-                    console.log(ptr.typeName_)
                     options.push([ptr.getVar_, ptr.getVar_]);
             }
             ptr = ptr.parentBlock_;
@@ -483,7 +483,8 @@ Blockly.Blocks['FS_input'] = {
 
         this.appendValueInput("valinp0")
             .setCheck(this.setFSCheck)
-            .appendField("inFS >>")
+            .appendField(new Blockly.FieldDropdown(this.allocateDropdown.bind(this)), 'fsName')
+            .appendField(">>")
             .setAlign(Blockly.ALIGN_RIGHT);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -591,8 +592,9 @@ Blockly.Blocks['FS_input'] = {
     onchange: Blockly.Blocks.requireInFunction,
 
     onchange: function () {
-
         this.allocateWarnings();
+        this.allocateDropdown();
+        this.allocateValues();
     },
 
     allocateWarnings: function () {
@@ -651,6 +653,26 @@ Blockly.Blocks['FS_input'] = {
             options.push(automate_library_string);
 
         }
+    },
+
+    allocateDropdown: function () {
+        var options = [["",""]];
+
+        let ptr = this.parentBlock_;
+
+        while (ptr) {
+            if (ptr.getDataStr() === "isVar" && (ptr.typeName_ == "ifstream" ||  ptr.typeName_ == "ofstream")) {
+                    options.push([ptr.getVar_, ptr.getVar_]);
+            }
+            ptr = ptr.parentBlock_;
+        }
+        return options;
+    },
+
+    allocateValues: function () {
+		this.parentClass_ = [];
+        this.getVar_ = this.getField("fsName").getText();
+		this.parentClass_.push(this.getVar_);
     }
 
 };
@@ -671,12 +693,12 @@ Blockly.C['FS_input'] = function (block) {
     if (this.FSStreamCount_ < 1 && !val) {
         WT = true;
     } else if (this.FSStreamCount_ < 1 && val) {
-        code += 'inFS >> ' + val;
+        code += this.getVar_ + ' >> ' + val;
     } else if (this.FSStreamCount_ > 0 && !val) {
         WT = true;
     } else {
 
-        code += 'inFS >> ' + val;
+        code += this.getVar_ + ' >> ' + val;
 
         for (var i = 1; i <= this.FSStreamCount_; ++i) {
             var arg = Blockly.C.valueToCode(block, 'valinp' + i, Blockly.C.ORDER_NONE);
@@ -721,7 +743,6 @@ Blockly.Blocks['oFS_stream_add'] = {
     init: function () {
         this.setColour(fileHUE);
         this.appendDummyInput().appendField('add');
-
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip('');
@@ -734,7 +755,8 @@ Blockly.Blocks['FS_output'] = {
 
         this.appendValueInput("valinp0")
             .setCheck(this.setFSCheck)
-            .appendField("outFS >>")
+            .appendField(new Blockly.FieldDropdown(this.allocateDropdown.bind(this)), 'fsName')
+            .appendField("<<")
             .setAlign(Blockly.ALIGN_RIGHT);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -844,6 +866,8 @@ Blockly.Blocks['FS_output'] = {
     onchange: function () {
 
         this.allocateWarnings();
+        this.allocateDropdown();
+        this.allocateValues();
     },
 
     allocateWarnings: function () {
@@ -902,6 +926,26 @@ Blockly.Blocks['FS_output'] = {
             options.push(automate_library_string);
 
         }
+    },
+
+    allocateDropdown : function () {
+        var options = [["",""]];
+
+        let ptr = this.parentBlock_;
+
+        while (ptr) {
+            if (ptr.getDataStr() === "isVar" && (ptr.typeName_ == "ifstream" ||  ptr.typeName_ == "ofstream")) {
+                    options.push([ptr.getVar_, ptr.getVar_]);
+            }
+            ptr = ptr.parentBlock_;
+        }
+        return options;
+    },
+
+    allocateValues: function () {
+        this.parentClass_ = [];
+        this.getVar_ = this.getField("fsName").getText();
+		this.parentClass_.push(this.getVar_);
     }
 
 };
@@ -922,12 +966,12 @@ Blockly.C['FS_output'] = function (block) {
     if (this.oFSStreamCount_ < 1 && !val) {
         WT = true;
     } else if (this.oFSStreamCount_ < 1 && val) {
-        code += 'outFS >> ' + val;
+        code += this.getVar_ + ' >> ' + val;
     } else if (this.oFSStreamCount_ > 0 && !val) {
         WT = true;
     } else {
 
-        code += 'outFS >> ' + val;
+        code += this.getVar_ + ' >> ' + val;
 
         for (var i = 1; i <= this.oFSStreamCount_; ++i) {
             var arg = Blockly.C.valueToCode(block, 'valinp' + i, Blockly.C.ORDER_NONE);
@@ -983,8 +1027,8 @@ Blockly.Blocks['outSS_stream_add'] = {
 Blockly.Blocks['outSS'] = {
     init: function () {
         this.appendValueInput("valinp0")
-            .setCheck(null)
-            .appendField("outSS <<");
+        .appendField(new Blockly.FieldDropdown(this.allocateDropdown.bind(this)), 'ssName')
+        .appendField("<<");
 
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -1087,6 +1131,8 @@ Blockly.Blocks['outSS'] = {
 
     onchange: function () {
         this.allocateWarnings();
+        this.allocateDropdown();
+        this.allocateValues();
     },
 
     allocateWarnings: function () {
@@ -1161,6 +1207,26 @@ Blockly.Blocks['outSS'] = {
             options.push(automate_library_string);
 
         }
+    },
+
+    allocateDropdown: function () {
+        var options = [["",""]];
+
+        let ptr = this.parentBlock_;
+
+        while (ptr) {
+            if (ptr.getDataStr() === "isVar" && (ptr.typeName_ == "osstream" ||  ptr.typeName_ == "isstream")) {
+                    options.push([ptr.getVar_, ptr.getVar_]);
+            }
+            ptr = ptr.parentBlock_;
+        }
+        return options;
+    },
+
+    allocateValues: function () {
+		this.parentClass_ = [];
+        this.getVar_ = this.getField("ssName").getText();
+		this.parentClass_.push(this.getVar_);
     }
 
 };
@@ -1175,7 +1241,7 @@ Blockly.C['outSS'] = function (block) {
         std = 'std::';
     }
     
-    code += 'outSS';
+    code += this.getVar_;
 
     for (var i = 0; i <= block.outSStreamCount_; ++i) {
         var arg = Blockly.C.valueToCode(block, 'valinp' + i, Blockly.C.ORDER_NONE);
@@ -1221,8 +1287,8 @@ Blockly.Blocks['inSS_stream_add'] = {
 Blockly.Blocks['inSS'] = {
     init: function () {
         this.appendValueInput("valinp0")
-            .setCheck(null)
-            .appendField("inSS <<");
+            .appendField(new Blockly.FieldDropdown(this.allocateDropdown.bind(this)), 'ssName')
+            .appendField(">>");
 
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -1324,6 +1390,8 @@ Blockly.Blocks['inSS'] = {
 
     onchange: function () {
         this.allocateWarnings();
+        this.allocateDropdown();
+        this.allocateValues();
     },
 
     allocateWarnings: function () {
@@ -1398,7 +1466,28 @@ Blockly.Blocks['inSS'] = {
             options.push(automate_library_string);
 
         }
+    },
+
+    allocateDropdown: function () {
+        var options = [["",""]];
+
+        let ptr = this.parentBlock_;
+
+        while (ptr) {
+            if (ptr.getDataStr() === "isVar" && (ptr.typeName_ == "osstream" ||  ptr.typeName_ == "isstream")) {
+                    options.push([ptr.getVar_, ptr.getVar_]);
+            }
+            ptr = ptr.parentBlock_;
+        }
+        return options;
+    },
+
+    allocateValues: function () {
+		this.parentClass_ = [];
+        this.getVar_ = this.getField("ssName").getText();
+		this.parentClass_.push(this.getVar_);
     }
+
 
 };
 
@@ -1412,7 +1501,7 @@ Blockly.C['inSS'] = function (block) {
         std = 'std::';
     }
 
-    code += 'inSS';
+    code += this.getVar_;
 
     for (var i = 0; i <= block.inSStreamCount_; ++i) {
         var arg = Blockly.C.valueToCode(block, 'valinp' + i, Blockly.C.ORDER_NONE);
@@ -1466,7 +1555,6 @@ Blockly.Blocks['insertionOverload'] = {
             this.setFieldValue(this.getVar_, "className1");
             this.setFieldValue(this.getVar_, "className2");
         } else {
-            console.log("check1");
             this.setFieldValue("null", "className1");
             this.setFieldValue("null", "className2");
         }
