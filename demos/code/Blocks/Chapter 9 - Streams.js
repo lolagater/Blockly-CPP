@@ -516,7 +516,7 @@ Blockly.Blocks['FS_input'] = {
     domToMutation: function (xmlElement) {
         this.FSStreamCount_ = parseInt(xmlElement.getAttribute('printadd'), 10);
         for (var i = 1; i <= this.FSStreamCount_; i++) {
-            this.appendValueInput('valinp' + i).setCheck(this.setFSCheck).appendField('inFS >> ').setAlign(Blockly.ALIGN_RIGHT);
+            this.appendValueInput('valinp' + i).setCheck(this.setFSCheck).appendField(' >> ').setAlign(Blockly.ALIGN_RIGHT);
         }
     },
 
@@ -551,7 +551,7 @@ Blockly.Blocks['FS_input'] = {
                 case 'FS_stream_add':
                     this.FSStreamCount_++;
                     var printInput = this.appendValueInput('valinp' + this.FSStreamCount_)
-                        .setCheck(this.setFSCheck).appendField('inFS >> ').setAlign(Blockly.ALIGN_RIGHT);
+                        .setCheck(this.setFSCheck).appendField(' >> ').setAlign(Blockly.ALIGN_RIGHT);
 
                     if (clauseBlock.valueConnection_) {
                         printInput.connection.connect(clauseBlock.valueConnection_);
@@ -696,6 +696,7 @@ Blockly.C['FS_input'] = function (block) {
         code += this.getVar_ + ' >> ' + val;
     } else if (this.FSStreamCount_ > 0 && !val) {
         WT = true;
+        console.log(WT);
     } else {
 
         code += this.getVar_ + ' >> ' + val;
@@ -761,7 +762,7 @@ Blockly.Blocks['FS_output'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(fileHUE);
-        this.setTooltip("Grabs input from file.\nRequires - <fstream>");
+        this.setTooltip("outputs to file.\nRequires - <fstream>");
         this.setHelpUrl("https://www.cplusplus.com/doc/tutorial/files/");
 
         this.setMutator(new Blockly.Mutator(['oFS_stream_add']));
@@ -788,7 +789,7 @@ Blockly.Blocks['FS_output'] = {
     domToMutation: function (xmlElement) {
         this.oFSStreamCount_ = parseInt(xmlElement.getAttribute('printadd'), 10);
         for (var i = 1; i <= this.oFSStreamCount_; i++) {
-            this.appendValueInput('valinp' + i).setCheck(this.setFSCheck).appendField('inFS >> ').setAlign(Blockly.ALIGN_RIGHT);
+            this.appendValueInput('valinp' + i).setCheck(this.setFSCheck).appendField(' << ').setAlign(Blockly.ALIGN_RIGHT);
         }
     },
 
@@ -823,7 +824,7 @@ Blockly.Blocks['FS_output'] = {
                 case 'oFS_stream_add':
                     this.oFSStreamCount_++;
                     var printInput = this.appendValueInput('valinp' + this.oFSStreamCount_)
-                        .setCheck(this.setFSCheck).appendField('outFS >> ').setAlign(Blockly.ALIGN_RIGHT);
+                        .setCheck(this.setFSCheck).appendField(' << ').setAlign(Blockly.ALIGN_RIGHT);
 
                     if (clauseBlock.valueConnection_) {
                         printInput.connection.connect(clauseBlock.valueConnection_);
@@ -966,12 +967,12 @@ Blockly.C['FS_output'] = function (block) {
     if (this.oFSStreamCount_ < 1 && !val) {
         WT = true;
     } else if (this.oFSStreamCount_ < 1 && val) {
-        code += this.getVar_ + ' >> ' + val;
+        code += this.getVar_ + ' << ' + val;
     } else if (this.oFSStreamCount_ > 0 && !val) {
         WT = true;
     } else {
 
-        code += this.getVar_ + ' >> ' + val;
+        code += this.getVar_ + ' << ' + val;
 
         for (var i = 1; i <= this.oFSStreamCount_; ++i) {
             var arg = Blockly.C.valueToCode(block, 'valinp' + i, Blockly.C.ORDER_NONE);
@@ -980,7 +981,7 @@ Blockly.C['FS_output'] = function (block) {
 
 
             if (childBlock) {
-                code += ' >> ' + arg;
+                code += ' << ' + arg;
             } else {
                 WT = true;
             }
