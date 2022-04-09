@@ -475,6 +475,7 @@ Blockly.Blocks["ds_subclass"] = {
     onchange: function () {
 		this.allocateDropdown();
         this.allocateValues();
+        this.allocateWarnings();
     },
 
 	//just adding name of classes to the dropdown
@@ -516,6 +517,21 @@ Blockly.Blocks["ds_subclass"] = {
 			this.parentClass_.push(this.getField("DS").getText());
 		}
 
+    },
+
+    allocateWarnings: function() {
+      let ptr = this.parentBlock_;
+      let warn = "";
+
+      if ((ptr) && (ptr.getDataStr() !== "isClass")) {
+        warn += "Error, block must be connected to a superclass block.";
+      }
+
+      if (warn.length > 0) {
+        this.setWarningText(warn);
+      } else {
+        this.setWarningText(null);
+      }
     }
 };
 
@@ -564,42 +580,30 @@ Blockly.Blocks["virtual"] = {
       .setCheck(null);
 
     let ptr = this.getInputTargetBlock("stateVirtual");
-    // while (ptr) {
-    //   switch (ptr.getDataStr()) {
-    //     /** If the block is a variable then push data. */
-    //     case "isVar":
-    //       this.classVarPublic_.push(ptr.varProp_);
-    //       break;
-    //
-    //     /** If the block is a function then push data. */
-    //     case 'isFunc':
-    //       if (ptr.type === 'class_function_declaration') {
-    //         //constructor
-    //         if (ptr.getVar_ === this.getVar_) {
-    //           this.classConProp_.push(ptr.funcProp_);
-    //           this.classConParam_.push(ptr.funcParam_);
-    //         }
-    //       }
-    //       this.classFuncProp_.push(ptr.funcProp_);
-    //       this.classFuncParam_.push(ptr.funcParam_);
-    //
-    //       break;
-    //   }
-    //
-    //   /** If the block is a constructor then push data (including attached parameters). */
-    //   switch (ptr.type) {
-    //     case "class_constructor":
-    //       this.classConProp_.push(ptr.funcProp_);
-    //       this.classConParam_.push(ptr.funcParam_);
-    //       break;
-    //     case "ds_object":
-    //       this.classObjPublic_.push(ptr.objProp_);
-    //       break;
-    //   }
-    //
-    //   ptr = ptr.nextConnection.targetBlock();
-    //
-    // }
+  },
+
+  /** The onchange function is called when a block is moved or updated. */
+  onchange: function () {
+    this.allocateWarnings();
+  },
+
+  allocateWarnings: function() {
+    let warn = "";
+    let ptr = this.parentBlock_;
+
+    if ((ptr) && (ptr.getDataStr() !== "isClass")) {
+      warn += "Error, virtual must be in class.";
+    }
+
+    if (this.parentBlock_ === null) {
+      warn += "Error, friend must be in class.";
+    }
+
+    if (warn.length > 0) {
+      this.setWarningText(warn);
+    } else {
+      this.setWarningText(null);
+    }
   }
 };
 
@@ -637,6 +641,30 @@ Blockly.Blocks["friend"] = {
       .setCheck(null);
 
     let ptr = this.getInputTargetBlock("stateFriend");
+  },
+
+  /** The onchange function is called when a block is moved or updated. */
+  onchange: function () {
+    this.allocateWarnings();
+  },
+
+  allocateWarnings: function() {
+    let warn = "";
+    let ptr = this.parentBlock_;
+
+    if ((ptr) && (ptr.getDataStr() !== "isClass")) {
+      warn += "Error, friend must be in class.";
+    }
+
+    if (this.parentBlock_ === null) {
+      warn += "Error, friend must be in class.";
+    }
+
+    if (warn.length > 0) {
+      this.setWarningText(warn);
+    } else {
+      this.setWarningText(null);
+    }
   }
 };
 
