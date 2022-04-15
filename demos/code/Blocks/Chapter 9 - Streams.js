@@ -402,7 +402,46 @@ Blockly.Blocks["oStream"] = {
         } else {
             this.setWarningText(null);
         }
-    }
+    },
+    customContextMenu: function (options) {
+        //save the current scope
+        let BlockScope = this;
+
+        var librarySearch = C_Include;
+        var libFound = librarySearch.search_library(this, ['include_sstream']);
+
+        //create an initialization block
+        if (!libFound) {
+
+            automate_library_string = {
+                text: "include <sstream>",
+                enabled: true,
+
+                callback: function () {
+                    var newBlock = BlockScope.workspace.newBlock('include_sstream');
+                    let ptr = BlockScope;
+
+                    while (ptr) {
+                        //if we're at the top
+                        if (!ptr.parentBlock_) {
+                            newBlock.previousConnection.connect(ptr.previousConnection.targetConnection);
+                            newBlock.nextConnection.connect(ptr.previousConnection);
+                            newBlock.initSvg();
+                            newBlock.render();
+
+                            return;
+                        }
+
+                        ptr = ptr.parentBlock_;
+                    }
+
+                }
+
+            }
+            options.push(automate_library_string);
+
+        }
+    },
 
 }
 
@@ -482,7 +521,46 @@ Blockly.Blocks["FS_Open"] = {
 		this.parentClass_ = [];
         this.getVar_ = this.getField("fsName").getText();
 		this.parentClass_.push(this.getVar_);
-    }
+    },
+    customContextMenu: function (options) {
+        //save the current scope
+        let BlockScope = this;
+
+        var librarySearch = C_Include;
+        var libFound = librarySearch.search_library(this, ['include_fstream']);
+
+        //create an initialization block
+        if (!libFound) {
+
+            automate_library_string = {
+                text: "include <fstream>",
+                enabled: true,
+
+                callback: function () {
+                    var newBlock = BlockScope.workspace.newBlock('include_fstream');
+                    let ptr = BlockScope;
+
+                    while (ptr) {
+                        //if we're at the top
+                        if (!ptr.parentBlock_) {
+                            newBlock.previousConnection.connect(ptr.previousConnection.targetConnection);
+                            newBlock.nextConnection.connect(ptr.previousConnection);
+                            newBlock.initSvg();
+                            newBlock.render();
+
+                            return;
+                        }
+
+                        ptr = ptr.parentBlock_;
+                    }
+
+                }
+
+            }
+            options.push(automate_library_string);
+
+        }
+    },
 
 }
 
@@ -556,7 +634,46 @@ Blockly.Blocks["FS_Close"] = {
         this.parentClass_ = [];
         this.getVar_ = this.getField("fsName").getText();
 		this.parentClass_.push(this.getVar_);
-    }
+    },
+    customContextMenu: function (options) {
+        //save the current scope
+        let BlockScope = this;
+
+        var librarySearch = C_Include;
+        var libFound = librarySearch.search_library(this, ['include_fstream']);
+
+        //create an initialization block
+        if (!libFound) {
+
+            automate_library_string = {
+                text: "include <fstream>",
+                enabled: true,
+
+                callback: function () {
+                    var newBlock = BlockScope.workspace.newBlock('include_fstream');
+                    let ptr = BlockScope;
+
+                    while (ptr) {
+                        //if we're at the top
+                        if (!ptr.parentBlock_) {
+                            newBlock.previousConnection.connect(ptr.previousConnection.targetConnection);
+                            newBlock.nextConnection.connect(ptr.previousConnection);
+                            newBlock.initSvg();
+                            newBlock.render();
+
+                            return;
+                        }
+
+                        ptr = ptr.parentBlock_;
+                    }
+
+                }
+
+            }
+            options.push(automate_library_string);
+
+        }
+    },
 
 }
 
@@ -787,7 +904,46 @@ Blockly.Blocks['FS_input'] = {
 		this.parentClass_ = [];
         this.getVar_ = this.getField("fsName").getText();
 		this.parentClass_.push(this.getVar_);
-    }
+    },
+    customContextMenu: function (options) {
+        //save the current scope
+        let BlockScope = this;
+
+        var librarySearch = C_Include;
+        var libFound = librarySearch.search_library(this, ['include_fstream']);
+
+        //create an initialization block
+        if (!libFound) {
+
+            automate_library_string = {
+                text: "include <fstream>",
+                enabled: true,
+
+                callback: function () {
+                    var newBlock = BlockScope.workspace.newBlock('include_fstream');
+                    let ptr = BlockScope;
+
+                    while (ptr) {
+                        //if we're at the top
+                        if (!ptr.parentBlock_) {
+                            newBlock.previousConnection.connect(ptr.previousConnection.targetConnection);
+                            newBlock.nextConnection.connect(ptr.previousConnection);
+                            newBlock.initSvg();
+                            newBlock.render();
+
+                            return;
+                        }
+
+                        ptr = ptr.parentBlock_;
+                    }
+
+                }
+
+            }
+            options.push(automate_library_string);
+
+        }
+    },
 
 };
 
