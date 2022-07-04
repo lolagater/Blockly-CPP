@@ -1819,7 +1819,6 @@ Blockly.Blocks['insertionOverload'] = {
     },
 
     allocateValues : function () {
-        console.log(this);
 
         let ptr = this.getSurroundParent();
         
